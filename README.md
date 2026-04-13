@@ -1,167 +1,163 @@
-# 🚀 Antigravity Agent Starter Kit
+# 🎓 Quiz Central
 
-> A production-ready template for building reliable, self-improving AI agents using a proven 3-layer architecture
+> An AI-powered secure online quiz platform for teachers and students
 
-## 📹 Overview
+## 📖 Overview
 
-The Antigravity Agent Starter Kit is a battle-tested framework for building AI agents that actually work in production. Instead of letting LLMs handle everything (which compounds errors), this architecture separates concerns into three layers: directives (what to do), orchestration (decision making), and execution (deterministic code). The result? Agents that self-improve, handle errors gracefully, and maintain 90%+ reliability even across complex multi-step workflows.
+Quiz Central is a full-stack web application that enables teachers to create, manage, and analyze quizzes with AI-powered question generation. Students can take quizzes, view results, and track their progress — all within a secure, modern interface.
 
-This template includes:
-- ✅ Pre-configured 3-layer architecture with clear separation of concerns
-- ✅ Self-annealing error recovery system that learns from failures
-- ✅ Modular skills system for extending agent capabilities
-- ✅ Production-ready file organization and best practices
-- ✅ Example skills to get you started immediately
-
-It's designed for developers, automation engineers, and AI builders who want to create agents that are reliable, maintainable, and continuously improving.
-
-## 🎨 Features
+## ✨ Features
 
 | Feature | Description |
 |---------|-------------|
-| 🏗️ **3-Layer Architecture** | Separates probabilistic AI decisions from deterministic execution, preventing error compounding and ensuring reliability |
-| 🔄 **Self-Annealing System** | Automatically learns from failures, updates directives, and improves over time without manual intervention |
-| 🧩 **Modular Skills** | Plug-and-play skill system with progressive disclosure - only loads what's needed when it's needed |
-| 📦 **Bundled Resources** | Scripts, references, and assets organized for maximum reusability and minimal context pollution |
-| 🎯 **Production-Ready** | Clear file organization, environment management, and cloud-first deliverables built in from day one |
+| 🤖 **AI Quiz Generation** | Generate quiz questions automatically from study materials using Google Gemini / Groq |
+| 📝 **Quiz Management** | Create, edit, and organize quizzes with multiple question types |
+| 📊 **Analytics Dashboard** | View detailed performance analytics and quiz statistics |
+| 🔐 **Secure Authentication** | JWT-based auth with Google OAuth, OTP verification, and role-based access |
+| 📄 **Study Material Upload** | Upload PDFs and documents (via AWS S3) to generate questions from |
+| 📧 **Email Notifications** | Automated email via Resend/Nodemailer for OTP and notifications |
+| 👩‍🏫 **Teacher & Student Roles** | Separate dashboards and permissions for teachers and students |
+| 🚀 **Production Ready** | Deployed on Render with MongoDB Atlas |
 
-## 🏛️ Architecture
+## 🛠️ Tech Stack
 
-The system follows a clear data flow:
+| Layer | Technology |
+|-------|------------|
+| **Frontend** | Next.js 15, React 19, TypeScript |
+| **Styling** | CSS (globals.css) |
+| **Database** | MongoDB (Mongoose) |
+| **Authentication** | JWT (jose), bcrypt, Google OAuth |
+| **AI/ML** | Google Gemini (`@google/genai`), Groq SDK |
+| **File Storage** | AWS S3 |
+| **Email** | Resend, Nodemailer |
+| **Document Parsing** | pdf-parse, Mammoth (DOCX) |
+| **Validation** | Zod |
+| **Deployment** | Render |
 
-**User Request → Directive (SOP) → Agent Orchestration → Execution Scripts → Cloud Deliverables**
-
-### The 3 Layers Explained
-
-**Layer 1: Directives** (`directives/` folder)
-- Standard Operating Procedures written in Markdown
-- Define goals, inputs, tools to use, outputs, and edge cases
-- Natural language instructions, like you'd give a mid-level employee
-- Living documents that improve over time
-
-**Layer 2: Orchestration** (The AI Agent)
-- Intelligent routing and decision-making
-- Reads directives, calls execution tools in the right order
-- Handles errors, asks for clarification, updates directives with learnings
-- The glue between intent and execution
-
-**Layer 3: Execution** (`execution/` folder)
-- Deterministic Python scripts
-- Handle API calls, data processing, file operations, database interactions
-- Reliable, testable, fast - no probabilistic behavior
-- Well-commented and production-ready
-
-### Why This Works
-
-If the agent does everything itself, errors compound. 90% accuracy per step = 59% success over 5 steps. The solution? Push complexity into deterministic code. The agent focuses on decision-making, not implementation details.
-
-## 🔧 Setup Instructions
-
-### 1️⃣ Requirements
-
-You'll need:
-- Python 3.8+ installed
-- A code editor (VS Code, Cursor, etc.)
-- API keys for any services your directives/skills require
-
-### 2️⃣ Download the Template
-
-1. Download or clone this template folder
-2. Navigate to the folder in your terminal:
-   ```bash
-   cd path/to/Antigravity\ Template\ copy
-   ```
-
-### 3️⃣ Set Up Your Environment
-
-1. Create a `.env` file in the root directory:
-   ```bash
-   touch .env
-   ```
-
-2. Add your API keys and environment variables:
-   ```
-   FIRECRAWL_API_KEY=your_key_here
-   # Add other API keys as needed
-   ```
-
-3. Install any required Python dependencies for your execution scripts:
-   ```bash
-   pip install -r requirements.txt  # if you create one
-   ```
-
-### 4️⃣ Configure Your Agent
-
-1. Review `AGENTS.md` to understand the architecture
-2. Create your first directive in `directives/` (or use existing ones)
-3. Add execution scripts to `execution/` as needed
-4. Point your AI agent (Claude, GPT-4, etc.) to read `AGENTS.md` as its system instructions
-
-### 5️⃣ Start Building
-
-Your agent is now ready to:
-- Read directives from `directives/`
-- Execute scripts from `execution/`
-- Use skills from `SKILLS/`
-- Self-improve through the annealing loop
-
-## 🧪 What's Included
-
-### Core Files
-
-- **`AGENTS.md`** - The agent's operating manual and architecture guide
-- **`SKILLS/`** - Pre-built skills for common tasks:
-  - `brand-extractor/` - Extract brand identity from any website
-  - `brand-guidelines/` - Enforce consistent brand styling
-  - `frontend-design/` - Build beautiful web applications
-  - `skill-creator/` - Create new skills following best practices
-
-### Directory Structure
+## 📁 Project Structure
 
 ```
-Antigravity Template/
-├── AGENTS.md              # Agent operating instructions
-├── SKILLS/                # Modular skill packages
-│   ├── brand-extractor/
-│   ├── brand-guidelines/
-│   ├── frontend-design/
-│   └── skill-creator/
-├── directives/            # Your SOPs (create this)
-├── execution/             # Your Python scripts (create this)
-├── .tmp/                  # Temporary/intermediate files (create this)
-└── .env                   # Environment variables (create this)
+quiz_app/
+├── app/                    # Next.js App Router pages
+│   ├── api/                # API routes
+│   │   ├── attempts/       # Quiz attempt endpoints
+│   │   ├── auth/           # Authentication endpoints
+│   │   ├── quizzes/        # Quiz CRUD endpoints
+│   │   ├── study-material/ # Study material upload/processing
+│   │   └── users/          # User management endpoints
+│   ├── account/            # Account settings page
+│   ├── analytics/          # Analytics dashboard
+│   ├── auth/               # Login / signup pages
+│   ├── create/             # Quiz creation page
+│   ├── dashboard/          # Main dashboard
+│   ├── edit/               # Quiz editing page
+│   ├── quiz/               # Quiz taking page
+│   ├── results/            # Results viewing page
+│   ├── globals.css         # Global styles
+│   ├── layout.tsx          # Root layout
+│   └── page.tsx            # Landing page
+├── components/             # Reusable UI components
+│   ├── auth/               # Auth-related components
+│   ├── dashboard/          # Dashboard components
+│   ├── filters/            # Filter components
+│   ├── layout/             # Layout components
+│   ├── navigation/         # Navigation components
+│   ├── quiz/               # Quiz components
+│   ├── results/            # Results components
+│   └── teacher/            # Teacher-specific components
+├── lib/                    # Utility libraries
+│   ├── auth.ts             # Auth helpers (server)
+│   ├── auth-client.ts      # Auth helpers (client)
+│   ├── dbConnect.ts        # MongoDB connection
+│   ├── mailer.ts           # Email utilities
+│   ├── quiz-utils.ts       # Quiz helper functions
+│   ├── s3.ts               # AWS S3 utilities
+│   └── validators.ts       # Input validation
+├── models/                 # Mongoose schemas
+│   ├── Attempt.ts          # Quiz attempt model
+│   ├── Otp.ts              # OTP verification model
+│   ├── Quiz.ts             # Quiz model
+│   ├── StudyMaterial.ts    # Study material model
+│   └── User.ts             # User model
+├── middleware.ts            # Next.js middleware (auth guards)
+├── render.yaml              # Render deployment config
+├── package.json
+└── tsconfig.json
 ```
 
-## 💡 Example Use Cases
+## 🚀 Getting Started
 
-- **Automation Engineers**: Build reliable automation workflows that handle errors gracefully and improve over time
-- **AI Developers**: Create specialized agents with domain expertise without retraining models
-- **Product Teams**: Deploy AI agents that maintain consistency across complex multi-step processes
-- **Consultants**: Package your expertise into reusable skills that agents can execute reliably
-- **Startups**: Rapidly prototype AI-powered features with production-ready architecture from day one
+### Prerequisites
 
-## 🎓 Pro Tips
+- **Node.js** 20+
+- **MongoDB** (local or Atlas)
+- API keys for: Google Gemini, AWS S3, Resend (or SMTP credentials)
 
-1. **Start Small**: Begin with one directive and one execution script. Test the self-annealing loop before scaling up.
+### Installation
 
-2. **Use Skills Wisely**: The included skills demonstrate best practices. Study `skill-creator/SKILL_SkillCreator.md` before creating your own.
+```bash
+# Clone the repository
+git clone https://github.com/parag005-ai/Quiz_Central.git
+cd quiz_app
 
-3. **Embrace the Annealing Loop**: When things break, let the agent fix the script, test it, and update the directive. The system gets stronger with each failure.
+# Install dependencies
+npm install
+```
 
-4. **Keep Directives Lean**: Only include what the agent can't figure out on its own. Assume intelligence, provide context.
+### Environment Variables
 
-5. **Cloud-First Deliverables**: Store outputs in Google Sheets, Slides, or other cloud services. Local files are for processing only.
+Create a `.env.local` file in the root directory:
 
-6. **Progressive Disclosure**: Skills use a 3-level loading system (metadata → SKILL.md → bundled resources). Keep context usage minimal.
+```env
+# Database
+MONGODB_URI=your_mongodb_connection_string
+
+# Authentication
+JWT_SECRET=your_jwt_secret
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id
+
+# AI Services
+GEMINI_API_KEY=your_gemini_api_key
+OPENAI_API_KEY=your_openai_api_key       # optional
+
+# AWS S3 (for file uploads)
+AWS_ACCESS_KEY_ID=your_aws_access_key
+AWS_SECRET_ACCESS_KEY=your_aws_secret_key
+AWS_S3_BUCKET=your_s3_bucket
+AWS_REGION=your_aws_region
+
+# Email
+RESEND_API_KEY=your_resend_api_key
+RESEND_FROM_EMAIL=noreply@yourdomain.com
+
+# Teacher Access
+TEACHER_INVITE_CODE=your_invite_code
+```
+
+### Run Locally
+
+```bash
+# Start the development server
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Build for Production
+
+```bash
+npm run build
+npm start
+```
+Contributers
+Parag Patil(https://github.com/parag005-ai)
+Ayush Nirmal(https://github.com/ayushnirmal13)
+
+## 📜 License
+
+This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-## 🚀 Want to Build & Sell AI Automations Like This?
 
-Join **The Build Room** and learn to build and sell AI automations - from $49 templates to $3K+ clients in 30 days.
-
-[→ Join The Build Room](https://www.skool.com/build-room)
-
----
-
-Built with ❤️ using Claude, Python, and the power of self-improving systems
+Built with ❤️ using Next.js, MongoDB, and AI
