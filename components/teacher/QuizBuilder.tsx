@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { DIFFICULTIES } from "@/lib/constants";
+import { QRCodeModal } from "@/components/quiz/QRCodeModal";
 
 export interface DraftQuestion {
   prompt: string;
@@ -42,6 +43,7 @@ export function QuizBuilder({ initialQuestions, onSaved }: QuizBuilderProps) {
   const [statusMsg, setStatusMsg] = useState("");
   const [isSaving, setIsSaving] = useState(false);
   const [expandedIdx, setExpandedIdx] = useState<number | null>(0);
+  const [createdQuiz, setCreatedQuiz] = useState<{ slug: string; id: string; isLive: boolean } | null>(null);
 
   useEffect(() => {
     if (initialQuestions && initialQuestions.length > 0) {
@@ -139,15 +141,19 @@ export function QuizBuilder({ initialQuestions, onSaved }: QuizBuilderProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      const data = await res.json() as { success: boolean; message?: string };
+      const data = await res.json() as { success: boolean; message?: string; quiz?: { slug: string; id: string; isLive: boolean } };
 
       if (!res.ok || !data.success) {
         setStatusMsg(data.message ?? "Failed to save quiz.");
         return;
       }
 
-      setStatusMsg(publishLive ? "✓ Quiz published live!" : "✓ Quiz saved as draft.");
-      onSaved?.();
+      if (data.quiz) {
+        setCreatedQuiz(data.quiz);
+      } else {
+        setStatusMsg(publishLive ? "✓ Quiz published live!" : "✓ Quiz saved as draft.");
+        onSaved?.();
+      }
     } catch {
       setStatusMsg("Network error. Please try again.");
     } finally {
@@ -193,6 +199,57 @@ export function QuizBuilder({ initialQuestions, onSaved }: QuizBuilderProps) {
     borderBottom: "1px solid var(--color-panel-strong)",
     cursor: "pointer",
   };
+
+  // ── Success screen after creation ──────────────────────────────────────────
+  if (createdQuiz) {
+    return (
+      <div style={{ maxWidth: "480px", margin: "0 auto" }}>
+        <div style={{
+          border: "2px solid var(--color-ink)",
+          padding: "2rem",
+          background: "var(--color-panel)",
+          textAlign: "center",
+          marginBottom: "1.5rem",
+        }}>
+          <p style={{
+            fontFamily: "var(--font-label), monospace",
+            fontSize: "0.72rem",
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            marginBottom: "0.5rem",
+            color: "var(--color-olive)",
+          }}>
+            {createdQuiz.isLive ? "✓ Quiz Published Live!" : "✓ Quiz Saved as Draft"}
+          </p>
+          <h2 style={{
+            fontFamily: "var(--font-heading), serif",
+            fontSize: "1.5rem",
+            marginTop: "0.5rem",
+            marginBottom: "1.5rem",
+          }}>
+            {title}
+          </h2>
+
+          <QRCodeModal
+            quizCode={createdQuiz.id}
+            slug={createdQuiz.slug}
+            isLive={createdQuiz.isLive}
+            quizTitle={title}
+            inline
+          />
+        </div>
+
+        <button
+          type="button"
+          className="btn-primary"
+          style={{ width: "100%" }}
+          onClick={() => onSaved?.()}
+        >
+          Go to Dashboard →
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div style={{ maxWidth: "860px" }}>

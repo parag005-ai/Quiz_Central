@@ -26,6 +26,14 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       return NextResponse.json({ success: true, quiz: serializeQuizDetail(quiz) });
     }
 
+    // Block access if quiz is not live — QR codes / links stop working
+    if (!quiz.isLive) {
+      return NextResponse.json(
+        { success: false, message: "This quiz is not currently available." },
+        { status: 403 },
+      );
+    }
+
     // Participants NEVER get correctAnswer — critical security measure
     return NextResponse.json({ success: true, quiz: serializeQuizForStudent(quiz) });
   } catch (error) {

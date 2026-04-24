@@ -149,9 +149,12 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 npm run build
 npm start
 ```
+<<<<<<< HEAD
 Contributers=>
 Parag Patil(https://github.com/parag005-ai) , 
 Ayush Nirmal(https://github.com/ayushnirmal13)
+=======
+>>>>>>> 71bdfb0 (Updated quiz features, dashboard, and QR code modal)
 
 ## 📜 License
 

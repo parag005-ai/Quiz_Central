@@ -7,6 +7,7 @@ import Link from "next/link";
 import { AppShell } from "@/components/layout/AppShell";
 import { fetchCurrentUser } from "@/lib/auth-client";
 import { DIFFICULTIES } from "@/lib/constants";
+import { QRCodeModal } from "@/components/quiz/QRCodeModal";
 
 interface QuizQuestion {
   index: number;
@@ -271,7 +272,10 @@ export default function EditQuizPage({ params }: { params: Promise<{ id: string 
         <section className="page-intro">
           <div className="page-intro__top">
             <div className="page-intro__copy">
-              <p className="eyebrow">Edit Quiz · {quiz.id}</p>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
+                <p className="eyebrow" style={{ margin: 0 }}>Edit Quiz · {quiz.id}</p>
+                <QRCodeModal quizCode={quiz.id} slug={slug} isLive={isLive} quizTitle={title} />
+              </div>
               <h1 className="page-title">Edit: {quiz.title}</h1>
               <p className="page-lede">
                 Modify questions, settings, permissions — everything about this quiz.

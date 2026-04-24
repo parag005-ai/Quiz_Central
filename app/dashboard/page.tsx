@@ -8,6 +8,7 @@ import { AppShell } from "@/components/layout/AppShell";
 import { fetchCurrentUser } from "@/lib/auth-client";
 import type { AuthUser } from "@/types/auth";
 import type { AttemptRecord, QuizSummary } from "@/types/quiz";
+import { QRCodeModal } from "@/components/quiz/QRCodeModal";
 
 
 
@@ -188,7 +189,10 @@ export default function DashboardPage() {
                     <article key={quiz.slug} className="quiz-card">
                       <div className="quiz-card__header">
                         <span className="quiz-card__badge">{quiz.tag}</span>
-                        <span className="quiz-card__id">{quiz.id}</span>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                          <span className="quiz-card__id">{quiz.id}</span>
+                          <QRCodeModal quizCode={quiz.id} slug={quiz.slug} isLive={quiz.isLive} quizTitle={quiz.title} />
+                        </div>
                       </div>
 
                       <div className="quiz-card__visual">
